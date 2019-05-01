@@ -13,16 +13,18 @@
 //   buzz
 
 function fizzBuzz(n) {
-  var i;
-  for (i = 1; i <= n; i++) {
+  // set i to start at 1, iteratethrough until i is <= n
+  for (let i = 1; i <= n; i++) {
+    // stop at multiple of 3 and 5 and log 'fizzbuzz'
     if (i % 3 === 0 && i % 5 === 0) {
       console.log('fizzbuzz');
-      i++;
-    } if (i % 3 === 0) {
+    // stop at multiple of 3 and log 'fizz'
+    } else if (i % 3 === 0) {
       console.log('fizz');
-      i++;
-    } if (i % 5 === 0) {
+    // stop at multiple of 5 and log 'buzz'
+    } else if (i % 5 === 0) {
       console.log('buzz');
+    // print numbers that don't meat the 3 if conditions
     } else {
       console.log(i);
     }
