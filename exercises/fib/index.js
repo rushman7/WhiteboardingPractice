@@ -8,7 +8,7 @@
 // Example:
 //   fib(4) === 3
 
-// function fib(n) { // basic solution
+// function fib(n) { // basic solution Linear runtime complexity
 //   let a = 0;
 //   let b = 1;
 //   let c = 1;
@@ -21,17 +21,25 @@
 //   return c;
 // }
 
-function fib(n) {
-  const result = [0, 1];
+// function fib(n) { // linear runtime complexity / O(n) / n
+//   const result = [0, 1];
 
-  for (let i = 2; i <= n; i++) {
-    const a = result[i - 1];
-    const b = result[i - 2];
+//   for (let i = 2; i <= n; i++) {
+//     const a = result[i - 1];
+//     const b = result[i - 2];
 
-    result.push(a + b);
+//     result.push(a + b);
+//   }
+
+//   return result[n];
+// }
+
+function fib(n) { // recursive solution
+  if (n < 2) {
+    return n;
   }
 
-  return result[n];
+  return fib(n - 1) + fib(n - 2);
 }
 
 module.exports = fib;
