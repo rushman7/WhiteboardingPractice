@@ -29,6 +29,16 @@ class LinkedList {
 
     return counter;
   }
+
+  getFirst() {
+    let node = this.head;
+
+    while (!node) {
+      node = node.next;
+    }
+
+    return node;
+  }
 }
 
 
