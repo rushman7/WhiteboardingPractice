@@ -135,15 +135,15 @@ describe('RemoveLast', () => {
   });
 });
 
-describe.skip('InsertLast', () => {
+describe('InsertLast', () => {
   test('adds to the end of the list', () => {
     const l = new List();
     l.insertFirst('a');
+    l.insertFirst('b');
+    l.insertLast('c');
 
-    l.insertLast('b');
-
-    expect(l.size()).toEqual(2);
-    expect(l.getLast().data).toEqual('b');
+    expect(l.size()).toEqual(3);
+    expect(l.getLast().data).toEqual('c');
   });
 });
 
