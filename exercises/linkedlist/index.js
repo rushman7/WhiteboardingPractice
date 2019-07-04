@@ -144,7 +144,7 @@ class LinkedList {
     let counter = 0;
 
     while (node) {
-      fn(node, counter);xc
+      fn(node, counter);
       node = node.next;
       counter++;
     }
