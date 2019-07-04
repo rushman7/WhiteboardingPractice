@@ -272,7 +272,7 @@ describe('InsertAt', () => {
   });
 });
 
-describe('ForEach', () => {
+describe('ForEach', () => {Wx  qcCC
   test('applies a transform to each node', () => {
     const l = new List();
 
