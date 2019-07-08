@@ -11,20 +11,6 @@
 // function that gets called with each element in the tree
 
 class Node {
-  constructor(data) {
-    this.data = data;
-    this.children = [];
-  }
-
-  add(data) {
-    this.children.push(new Node(data));
-  }
-
-  remove(data) {
-    this.children = this.children.filter(node => {
-      return node.data !== data;
-    });
-  }
 }
 
 class Tree {
@@ -33,23 +19,11 @@ class Tree {
   }
 
   traverseBF(fn) {
-    const arr = [this.root];
 
-    while (arr.length) {
-      const node = arr.shift();
-      arr.push(...node.children);
-      fn(node);
-    }
   }
 
   traverseDF(fn) {
-    const arr = [this.root];
 
-    while(arr.length) {
-      const node = arr.shift();
-      arr.unshift(...node.children)
-      fn(node);
-    }
   }
 }
 
