@@ -17,3 +17,21 @@ function isConnectedBFS(graph, s, t) {
 
   return false;
 }
+
+
+function isConnectedDFS(graph, s, t) {
+  return dfs(graph, new Set(), s, t)
+}
+
+function dfs(graph, v, s, t) {
+  if (s === t) return true;
+  v.add(s);
+  for (n of graph[s]) {
+    if (!v.has(n)) {
+      if (dfs(graph, v, n, t)) {
+        return true
+      }
+    }
+  }
+  return false
+}
