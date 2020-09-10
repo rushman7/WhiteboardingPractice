@@ -13,5 +13,5 @@ function linearSearch(arr, val) {
   return -1
 }
 
-console.log(linearSearch(['a',1,'b','c'], '2')) // false
-console.log(linearSearch([1,2,3,4], 3)) // true
+console.log(linearSearch(['a',1,'b','c'], '2')) // -1
+console.log(linearSearch([1,2,3,4], 3)) // 3
