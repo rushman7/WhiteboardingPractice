@@ -1,3 +1,1 @@
-# AlgoCasts
-
-Companion repo to a course on Udemy.com
+An overall repo of all my completed coding challenges for all Data Structures and Algorithms. 
