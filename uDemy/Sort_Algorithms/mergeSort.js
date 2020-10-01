@@ -12,21 +12,22 @@ function mergeSort(arr) {
 
 function merge(A, B) {
   let C = [];
-  while (A.length > 0 || B.length > 0) {
-    if (A.length === 0) {
-      C.push(B[0])
-      B.shift()
-    } else if (B.length === 0) {
-      C.push(A[0])
-      A.shift()
-    } else if (A[0] <= B[0]) {
-      C.push(A[0])
-      A.shift()
-    } else if (B[0] <= A[0]) {
-      C.push(B[0])
-      B.shift()
-    }
-  }
+  let i = j = 0;
+  while (A.length > i || B.length > j) {
+    if (A.length === i) {
+      C.push(B[j]);
+      j++;
+    } else if (B.length === j) {
+      C.push(A[i]);
+      i++;
+    } else if (A[i] <= B[j]) {
+      C.push(A[i]);
+      i++;
+    } else if (B[j] <= A[i]) {
+      C.push(B[j]);
+      j++;
+    };
+  };
   return C;
 }
 
