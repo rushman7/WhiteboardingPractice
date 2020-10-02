@@ -6,8 +6,7 @@ function mergeSort(arr) {
   let mid = Math.floor(arr.length/2);
   let A = mergeSort(arr.slice(0, mid))
   let B = mergeSort(arr.slice(mid))
-  let merged = merge(A,B);
-  return merged;
+  return merge(A,B);
 }
 
 function merge(A, B) {
