@@ -1,4 +1,4 @@
-  // Quick sort
+// Quick sort
 // Quick sort is an O(n * log(n)) algorithm (Worst case - O(n^2).
 // Pivot is always the first element
 
