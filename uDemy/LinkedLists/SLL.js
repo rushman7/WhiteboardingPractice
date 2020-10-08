@@ -23,10 +23,7 @@ class SinglyLinkedList{
   }
 
   pop() {
-    if (!this.length) return this;
-
-    this.length--
-    if (this.head === this.tail) return this.head = this.tail = null;
+    if (!this.length) return `List is Empty`;
 
     let curr = this.head;
 
@@ -36,7 +33,19 @@ class SinglyLinkedList{
         this.tail = curr;
       } else curr = curr.next;
     }
-    
+
+    this.length--
+    if (!this.length) this.head = this.tail = null;
+    return this;
+  }
+
+  shift() {
+    if (!this.length) return `List is Empty`;
+
+    this.head = this.head.next;
+
+    this.length--
+    if (!this.length) this.head = this.tail = null;
     return this;
   }
 }
@@ -47,11 +56,9 @@ SLL.push(5)
 SLL.push(10)
 SLL.push(15)
 SLL.push(20)
-SLL.push(25)
-SLL.push(30)
-SLL.pop()
-SLL.pop()
-console.log(SLL, SLL.head.next.next)
+// SLL.pop()
+// SLL.shift()
+console.log(SLL)
 
 // SLL.print(); // [ 5, 10, 15, 20, 25, 30 ]
 // SLL.pop();
