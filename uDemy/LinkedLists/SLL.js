@@ -48,6 +48,28 @@ class SinglyLinkedList{
     if (!this.length) this.head = this.tail = null;
     return this;
   }
+  unshift(val) {
+    let node = new Node(val);
+    if (!this.length) this.head = this.tail = node
+    else {
+      node.next = this.head;
+      this.head = node;
+    }
+
+    this.length++
+    return this;
+  }
+  get(num) {
+    let i = 0;
+    let curr = this.head;
+
+    while (i < num && curr) {
+      i++
+      curr = curr.next
+    }
+
+    return curr ? curr : 'Does not exist.';
+  }
 }
 
 const SLL = new SinglyLinkedList();
@@ -55,27 +77,10 @@ const SLL = new SinglyLinkedList();
 SLL.push(5)
 SLL.push(10)
 SLL.push(15)
-SLL.push(20)
+SLL.unshift(20)
+// SLL.push(20)
 // SLL.pop()
 // SLL.shift()
 console.log(SLL)
-
-// SLL.print(); // [ 5, 10, 15, 20, 25, 30 ]
-// SLL.pop();
-// SLL.print(); // [ 5, 10, 15, 20, 25 ]
-// SLL.unshift(1);
-// SLL.print(); // [ 1, 5, 10, 15, 20, 25 ]
-// SLL.shift();
-// SLL.print(); // [ 5, 10, 15, 20, 25 ]
-// console.log(SLL.get(2).data); // 15
-// SLL.set(2, 100);
-// console.log(SLL.get(2).data); // 100
-// SLL.insert(3, 10000);
-// SLL.print(); // [ 5, 10, 100, 10000, 20, 25 ]
-// SLL.remove(3);
-// SLL.print(); // [ 5, 10, 100, 20, 25 ]
-// SLL.reverse();
-// SLL.print(); // [ 25, 20, 100, 10, 5 ]
-// SLL.rotate(-2);
-// SLL.print(); // [ 10, 5, 25, 20, 100 ]
-// console.log(SLL.find(25, true)); // 2
+console.log(SLL.get(10))
+console.log(SLL.get(1))
