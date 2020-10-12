@@ -117,22 +117,19 @@ class SinglyLinkedList{
   reverse() {
     if (!this.length) return `List is Empty`;
 
-    let node = this.head;
+    let curr = this.head,
+      prev = null,
+      next = null;
+      
     this.head = this.tail;
-    this.tail = node;
+    this.tail = curr;
 
-    let prev = null,
-        next = null;
-
-    for (let i=0;i<this.length;i++) {
-      next = node.next;
-      node.next = prev;
-      prev = node;
-      node = next;
+    while (curr) {
+      next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
     }
-
-    return this;
-
   }
 }
 
@@ -146,6 +143,7 @@ SLL.insert(2, 8) // 20 -> 5 -> 8 -> 10 -> 15
 SLL.print()
 SLL.reverse()
 SLL.print()
+// console.log(SLL)
 // SLL.remove(3) // 20 -> 5 -> 15
 // SLL.set(1, 8) // 5 --> 8
 // console.log(SLL.get(1))
