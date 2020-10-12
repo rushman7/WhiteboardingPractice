@@ -104,6 +104,36 @@ class SinglyLinkedList{
     this.length--
     return this;
   }
+
+  print() { 
+    let arr = [];
+    let curr = this.head;
+    while (curr) {
+      arr.push(curr.val)
+      curr=curr.next
+    }
+    console.log(arr)
+  }
+  reverse() {
+    if (!this.length) return `List is Empty`;
+
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+
+    let prev = null,
+        next = null;
+
+    for (let i=0;i<this.length;i++) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+
+    return this;
+
+  }
 }
 
 const SLL = new SinglyLinkedList();
@@ -112,11 +142,13 @@ SLL.push(5)
 SLL.push(10)
 SLL.push(15)
 SLL.unshift(20) // 20 -> 5 -> 10 -> 15
-// console.log(SLL.insert(2, 8)) // 20 -> 5 -> 8 -> 10 -> 15
-SLL.remove(3) // 20 -> 5 -> 15
+SLL.insert(2, 8) // 20 -> 5 -> 8 -> 10 -> 15
+SLL.print()
+SLL.reverse()
+SLL.print()
+// SLL.remove(3) // 20 -> 5 -> 15
 // SLL.set(1, 8) // 5 --> 8
 // console.log(SLL.get(1))
 // SLL.push(20)
 // SLL.pop()
 // SLL.shift()
-console.log(SLL) // 20 -> 5 -> 10 -> 15
