@@ -54,6 +54,49 @@ class DoublyLinkedList{
     return this;
   }
 
+  unshift(val) {
+    let node = new Node(val);
+    if (!this.length) this.head = this.tail = node;
+    
+    node.next = this.head;
+    this.head.prev = node;
+    this.head = node;
+    this.length++
+
+    return this;
+  }
+
+  get(index) {
+    if (index < 0 || index >= this.length || !this.length) return null;
+
+    let curr;
+
+    if (index <= this.length/2) {
+      curr = this.head;
+      while (index > 0) { 
+        index--
+        curr = curr.next;
+      }
+    } else {
+      curr = this.tail;
+      let count = this.length-1;
+      while (index < count) { 
+        count--
+        curr = curr.prev;
+      }
+    }
+
+    return curr;
+  }
+
+  set(index, val) {
+    let node = this.get(index)
+
+    if (node) node.val = val;
+
+    return node;
+  }
+
   print() { 
     let arr = [];
     let curr = this.head;
@@ -62,12 +105,12 @@ class DoublyLinkedList{
       curr=curr.next
     }
     console.log(arr)
-    console.log(this)
+    // console.log(this)
   }
 }
 
 const DLL = new DoublyLinkedList();
 
-DLL.push(5).push(10).push(15).push(20).push(25)
-  .pop().shift()
+DLL.push(5).push(10).push(15).push(20).push(25).push(30)
+  .pop().shift().unshift(4)
 DLL.print()
