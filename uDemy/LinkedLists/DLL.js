@@ -97,6 +97,24 @@ class DoublyLinkedList{
     return node;
   }
 
+  insert(index, val) {
+    let next = this.get(index);
+    let node = new Node(val);
+
+    if (index == 0) return this.unshift(val);
+    if (index == this.length) return this.push(val);
+
+    if (next) {
+      node.prev = next.prev;
+      node.next = next;
+      next.prev.next = node;
+      next.prev = node;
+    }
+
+    this.length++
+    return next ? node : next;
+  }
+
   print() { 
     let arr = [];
     let curr = this.head;
@@ -113,4 +131,5 @@ const DLL = new DoublyLinkedList();
 
 DLL.push(5).push(10).push(15).push(20).push(25).push(30)
   .pop().shift().unshift(4)
+  .insert(6, 12)
 DLL.print()
