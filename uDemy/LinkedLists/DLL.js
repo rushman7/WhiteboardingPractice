@@ -98,11 +98,11 @@ class DoublyLinkedList{
   }
 
   insert(index, val) {
-    let next = this.get(index);
-    let node = new Node(val);
-
     if (index == 0) return this.unshift(val);
     if (index == this.length) return this.push(val);
+
+    let next = this.get(index);
+    let node = new Node(val);
 
     if (next) {
       node.prev = next.prev;
@@ -113,6 +113,21 @@ class DoublyLinkedList{
 
     this.length++
     return next ? node : next;
+  }
+
+  remove(index) {
+    if (index == 0) return this.shift();
+    if (index == this.length-1) return this.pop();
+
+    let node = this.get(index);
+
+    if (node) {
+      node.prev.next = node.next;
+      node.next.prev = node.prev;
+    }
+
+    this.length--
+    return node;
   }
 
   print() { 
@@ -131,5 +146,4 @@ const DLL = new DoublyLinkedList();
 
 DLL.push(5).push(10).push(15).push(20).push(25).push(30)
   .pop().shift().unshift(4)
-  .insert(6, 12)
-DLL.print()
+  DLL.print()
