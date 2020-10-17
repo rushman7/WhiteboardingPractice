@@ -130,6 +130,26 @@ class DoublyLinkedList{
     return node;
   }
 
+  reverse(){
+    if (this.length > 1) {
+        let curr = this.head;
+        this.head = this.tail;
+        this.tail = curr;
+        let prev = curr.prev;
+        let next = curr;
+        
+        while (curr) {
+            next = curr.next;
+            curr.next = prev;
+            curr.prev = next;
+            prev = curr;
+            curr = next;
+        }
+    }
+    
+    return this;
+}
+
   print() { 
     let arr = [];
     let curr = this.head;
@@ -146,4 +166,8 @@ const DLL = new DoublyLinkedList();
 
 DLL.push(5).push(10).push(15).push(20).push(25).push(30)
   .pop().shift().unshift(4)
-  DLL.print()
+
+DLL.print()
+DLL.reverse()
+DLL.print()
+
