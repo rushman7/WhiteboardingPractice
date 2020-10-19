@@ -35,17 +35,18 @@ class BinarySearchTree {
   DFSPrint() {
     let visited = [];
     let curr = this;
-    function DFS(node) {
-      visited.push(node.value); // pre order
-      if (node.left) DFS(node.left);
-      visited.push(node.value); // in order
-      if (node.right) DFS(node.right);
-      // visited.push(node.value); // post order
 
+    function DFS(node) {
+      // visited.push(node.value); // pre order
+      if (node.left) DFS(node.left);
+      // visited.push(node.value); // in order
+      if (node.right) DFS(node.right);
+      visited.push(node.value); // post order
     }
+
     DFS(curr)
 
-    console.log(visited);
+    return visited;
   }
 
   BFSPrint() {
@@ -59,7 +60,7 @@ class BinarySearchTree {
       if (curr.left) queue.push(curr.left);
       if (curr.right) queue.push(curr.right);
     }
-    console.log(visited)
+    return visited;
   }
 }
 
@@ -70,8 +71,8 @@ BST.insert(15)
 BST.insert(20)
 BST.insert(3)
 BST.insert(8)
-BST.DFSPrint()
-BST.BFSPrint()
+console.log(BST.DFSPrint());
+console.log(BST.BFSPrint());
 // console.log(BST);
 
 /** 
