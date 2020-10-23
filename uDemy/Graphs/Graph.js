@@ -18,10 +18,48 @@ class Graph {
   }
 
   removeVertex(data) {
-    for (let vertex in this.adj) {
-      this.removeEdge(data, vertex);
-    }
+    for (let vertex in this.adj) this.removeEdge(data, vertex);
     delete this.adj[data];
+  }
+
+  traverseDFS(vertex) {
+    let visited = {}, 
+        result = [],
+        adj = this.adj;
+        
+    function DFS(vertex) {
+      if (!adj[vertex]) return;
+      visited[vertex] = true;
+      result.push(vertex);
+
+      for (let i of adj[vertex]) if (!visited[i]) DFS(i);
+    };
+
+    DFS(vertex);
+    console.log(result);
+    return result;
+  }
+
+  traverseBFS(vertex) {
+    let visited = {}, 
+        result = [],
+        queue = [vertex]
+
+    visited[vertex] = true;
+        
+    while (queue.length > 0) {
+      let val = queue.shift();
+      result.push(val)
+      for (let i of this.adj[val]) {
+        if (!visited[i]) {
+          queue.push(i)
+          visited[i] = true;
+        }
+      }
+
+    }
+    console.log(result)
+    return result;
   }
 }
 
@@ -39,8 +77,10 @@ graph.addEdge('Rome','London');
 graph.addEdge('California','Florida');
 graph.addEdge('Tokyo','London');
 graph.addEdge('China','California');
+// graph.traverseDFS('Tokyo');
+graph.traverseBFS('Tokyo');
 // graph.removeEdge('Tokyo','China');
 // graph.removeVertex('China')
 
 
-console.log(graph);
+// console.log(graph);
