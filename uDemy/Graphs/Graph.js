@@ -43,14 +43,15 @@ class Graph {
   traverseBFS(vertex) {
     let visited = {}, 
         result = [],
-        queue = [vertex]
+        queue = [vertex],
+        curr;
 
     visited[vertex] = true;
         
-    while (queue.length > 0) {
-      let val = queue.shift();
-      result.push(val)
-      for (let i of this.adj[val]) {
+    while (queue.length) {
+      curr = queue.shift();
+      result.push(curr)
+      for (let i of this.adj[curr]) {
         if (!visited[i]) {
           queue.push(i)
           visited[i] = true;
