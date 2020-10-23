@@ -68,21 +68,6 @@ class PriorityQueue {
     
     return max;
   }
-
-  /*
-              P1(5)
-         P3(3)
-
-              P4(1)
-         P2(2)      P7(1)
-      P1(5) P5(2) P6(3) P3(3)  
-
-    [3, 2, 1, 5, 2, 3]
-    [0, 1, 2, 3, 4, 5, 6]
-*/
-
-
-
 }
 
 const priorityQueue = new PriorityQueue();
