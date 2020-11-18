@@ -13,15 +13,12 @@ class RandomizedSet {
   
   insert(val) {
     if (val in this.cache) return false;
-
     this.values.push(val);
     this.cache[val] = this.values.length-1;
-
     return true;
   }
   
   remove(val) {
-    // console.log('32', this.cache[val], val)
     if (val in this.cache) {
       this.cache[this.values[this.values.length-1]] = this.cache[val];
       [this.values[this.cache[val]],this.values[this.values.length-1]] = [this.values[this.values.length-1],this.values[this.cache[val]]]
