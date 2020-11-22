@@ -22,9 +22,9 @@
 
 var twoSum = function(nums, target) {
   let cache = {};
+    
   for (i in nums) {
-      let diff = target - nums[i]
       if (cache[nums[i]]) return [cache[nums[i]], i]
-      cache[diff] = i
+      else cache[target - nums[i]] = i;
   }
 };
