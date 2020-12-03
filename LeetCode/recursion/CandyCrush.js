@@ -12,7 +12,7 @@ function candyCrush(str, sIdx=0, eIdx=1) {
   if ((eIdx - sIdx) > 2) {
     let res = str.replace(str.substring(sIdx,eIdx),'')
     return candyCrush(res, sIdx=0, eIdx=1)
-  } else return candyCrush(str, sIdx+1, eIdx=sIdx+1)
+  } else return candyCrush(str, sIdx+1, sIdx+2)
 }
 
 
