@@ -24,22 +24,21 @@
 var numIslands = function(grid) {
   let total = 0;
   
-  for (r in grid) {
-      for (c in grid[0]) {
-          if (grid[r][c] == 1) {
-              total += 1
-              search(grid,Number(r), Number(c))
+  for (let i=0;i<grid.length;i++) {
+      for (let j=0;j<grid[i].length;j++) {
+          if (grid[i][j] == '1') {
+              total++;
+              search(grid, i, j);
           }
       }
   }
-  return total;
+  return total
 };
 
-function search(grid,r,c) {
-  grid[r][c] = 0;
-  if (r-1 >= 0 && grid[r-1][c] == 1) search(grid,r-1,c);
-  if (r+1 < grid.length && grid[r+1][c] == 1) search(grid,r+1,c);
-  if (c-1 >= 0 && grid[r][c-1] == 1) search(grid,r,c-1);
-  if (c+1 < grid[0].length && grid[r][c+1] == 1) search(grid,r,c+1);
-  return
+function search(grid, i, j) {
+grid[i][j] = '0';
+if (j < grid[i].length-1) if (grid[i][j+1] == "1") search(grid, i, j+1); 
+if (i < grid.length-1) if (grid[i+1][j] == "1") search(grid, i+1, j); 
+if (j > 0) if (grid[i][j-1] == "1") search(grid, i, j-1); 
+if (i > 0) if (grid[i-1][j] == "1") search(grid, i-1, j); 
 }
