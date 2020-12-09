@@ -4,16 +4,16 @@
 
 // If no such index exists, we should return -1. If there are multiple pivot indexes, you should return the left-most pivot index.
 
-// var pivotIndex = function(nums) {
-//   if (nums.length > 1) {
-//       let total = nums.reduce((acc, val) => acc + val);
-//       let prev = 0;
+var pivotIndex = function(nums) {
+  if (nums.length > 1) {
+      let total = nums.reduce((acc, val) => acc + val);
+      let prev = 0;
       
-//       for (let i=0;i<nums.length;i++) {
-//           if (nums[i] == total - prev*2) return i;
-//           prev+=nums[i]
-//       }
-//   }
+      for (let i=0;i<nums.length;i++) {
+          if (nums[i] == total - prev*2) return i;
+          prev+=nums[i]
+      }
+  }
   
-//   return -1
-// };
+  return -1
+};
