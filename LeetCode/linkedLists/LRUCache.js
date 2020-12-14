@@ -1,69 +1,69 @@
 class Node {
-  constructor(key, val) {
-      this.key = key;
-      this.val = val;
-      this.next = null;
-      this.prev = null;
-  }
+    constructor(key, val) {
+        this.val = val;
+        this.key = key;
+        this.next = null;
+        this.prev = null
+    }
 }
-
 class LRUCache {
-  constructor(capacity) {
-      this.capacity = capacity;
-      this.cache = {};
-      this.size = 0;
-      this.head = new Node();
-      this.tail = new Node();
-      this.head.next = this.tail;
-      this.tail.prev = this.head;
-  }
+    constructor(capacity) {
+        this.head = new Node();
+        this.tail = new Node();
+        this.capacity = capacity;
+        this.size = 0;
+        this.cache = {};
+    }
+    
+    get(key) {
+        if (this.cache[key]) {
+            let temp = this.cache[key];
+            if (this.head.next == temp) return this.cache[key].val
+            else {
+                this.remove(temp);
+                this.add(temp);
+                return temp.val
+            }
+        }
+        return -1;
+    }
 
-  get(key) {
-      let node = this.cache[key];
-      if (!node) return -1;
-
-      this.remove(node);
-      this.add(node);
-      return node.val
-  }
-
-  put(key, val) {
-      let node = this.cache[key];
-      
-      if (node) {
-          node.val = val;
-          this.remove(node);
-          this.add(node);
-      } else {
-          if (this.size == this.capacity) {
-              delete this.cache[this.tail.prev.key];
-              this.remove(this.tail.prev)
-          }
-          
-          node = new Node(key, val);
-          
-          this.cache[key] = node;
-          this.add(node);
-      }
-  }
-  
-  add(node) {
-      let headNext = this.head.next;
-      this.head.next = node;
-      node.prev = this.head;
-      if (headNext) {
-          node.next = headNext;
-          headNext.prev = node;
-      }
-      this.size++
-  }
-  
-  remove(node) {
-      let next = node.next;
-      let prev = node.prev;
-      
-      next.prev = prev;
-      prev.next = next;
-      this.size--
-  }
+    put(key, val) {
+        let node = new Node(key, val);
+        if (this.cache[key]) {
+            this.remove(this.cache[key]);
+            this.add(node);
+        } else {
+            if (this.size < this.capacity) this.add(node);
+            else {
+                this.remove(this.tail.prev)
+                this.add(node);
+            }
+        }
+    }
+    
+    add(node) {
+        if (this.size == 0) {
+            node.prev = this.head;
+            node.next = this.tail;
+            this.head.next = node;
+            this.tail.prev = node;
+        } else {
+            this.head.next.prev = node;
+            node.next = this.head.next
+            node.prev = this.head;
+            this.head.next = node;
+        }
+        this.cache[node.key] = node
+        this.size++;
+    }
+    
+    remove(node) {
+        this.size--;
+        delete this.cache[node.key];
+        let prev = node.prev;
+        let next = node.next;
+        prev.next = next;
+        next.prev = prev;
+    }
 };
