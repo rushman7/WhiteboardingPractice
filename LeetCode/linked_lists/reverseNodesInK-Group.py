@@ -33,30 +33,41 @@ class ListNode:
         self.next = next
 
 def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
+    # create a sentinal node as our final result (O(N) space)
     sentinal = ListNode()
+    # create a reference to our sentinal
     temp = sentinal
-    curr = head
-    while curr:
-        temp.next, curr = self.reverseKNodes(curr, k)
+    # while there are nodes to reverse
+    while head:
+        # sentinals.next and head, if not enough nodes to reverse temp next is just whats left of head, 
+        # else its reversed and head is now k nodes further
+        temp.next, head = self.reverseKNodes(head, k)
         while temp.next:
+            # move our sentinal reference to last node (k times)
             temp = temp.next
     return sentinal.next
 
-def reverseKNodes(self,root,count):
-    curr = root
+def reverseKNodes(self,head,k):
+    # reverse k nodes function 
+    curr = head
     prev = None
     next = None
-    temp_count = count
-    while temp_count and curr:
-        temp_count-=1
-        curr = curr.next
-    if temp_count:
-        return root, None
-    curr = root
+    count = k
+    # checking first if we have enough nodes to reverse
     while count and curr:
+        count-=1
+        curr = curr.next
+    # if not enough nodes, return the original head
+    if count:
+        return head, None
+    # re-refernce the head
+    curr = head
+    while k and curr:
+        # reverse nodes k times
         next = curr.next
         curr.next = prev
         prev = curr
         curr = next
-        count-=1
+        k-=1
+    # return our new reversed nodes as prev, and remaining unreversed nodes as curr
     return prev, curr
