@@ -60,4 +60,3 @@ def pseudoPalindromicPaths (self, root: TreeNode) -> int:
 
     dfs(root, path)
     return total
-    
