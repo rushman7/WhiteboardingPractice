@@ -44,20 +44,3 @@ var lengthOfLongestSubstring = function(s) {
   result.sort((a,b) => b.length - a.length)
   return result[0].length
 };
-
-// OPTIMIZED SOLUTION
-
-// var lengthOfLongestSubstring = function(s) {
-//   let cache = {},
-//       i = 0,
-//       ans = 0;
-  
-//   for (let j=0;j<s.length;j++) {
-//       if (cache[s.charAt(j)]) i = Math.max(cache[s.charAt(j)], i)
-
-//       ans = Math.max(ans, j - i + 1)
-//       cache[s.charAt(j)] = j+1
-//   }
-  
-//   return ans
-// };
