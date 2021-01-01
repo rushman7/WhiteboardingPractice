@@ -36,3 +36,17 @@ var canPermutePalindrome = function(s) {
   
   return true
 };
+
+// python version
+
+// def canPermutePalindrome(self, s: str) -> bool:
+//         counted = Counter(s)
+//         odds = 0
+        
+//         for count in counted:
+//             if counted[count] % 2 != 0:
+//                 odds+=1
+//             if odds > 1:
+//                 return False
+            
+//         return True
