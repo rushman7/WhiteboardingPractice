@@ -29,9 +29,9 @@ class Solution:
                 ans.append(node.val)
             
             if node.left:
-                helper(node.left,i+1)
+                dfs(node.left,i+1)
             if node.right:
-                helper(node.right,i+1)
+                dfs(node.right,i+1)
                 
         dfs(root,0)
         
