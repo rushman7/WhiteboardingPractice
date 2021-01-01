@@ -14,20 +14,25 @@
 
 class Solution:
     def rightSideView(self, root: TreeNode) -> List[int]:
-        if not root: return root
-        q = []
-        q.insert(0, root)
-        q.insert(0, "")
+        if not root: 
+            return None
+        
         ans = []
-        while len(q) > 0:
-            if len(q) == 1: 
-                break
-            node = q.pop()
-            if node.left: 
-                q.insert(0, node.left)
-            if node.right: 
-                q.insert(0, node.right)
-            if q[-1] == "":
+        
+        def dfs(node,i):
+            if not node:
+                return
+            
+            if i < len(ans):
+                ans[i] = node.val
+            else:
                 ans.append(node.val)
-                q.insert(0, q.pop())
+            
+            if node.left:
+                helper(node.left,i+1)
+            if node.right:
+                helper(node.right,i+1)
+                
+        dfs(root,0)
+        
         return ans
