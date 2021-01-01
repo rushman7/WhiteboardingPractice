@@ -19,45 +19,48 @@
 # Output:
 # [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[110,0,0,0,114],[210,0,0,0,214],[310,0,0,113,314],[410,0,0,213,414],[610,211,112,313,614],[710,311,412,613,714],[810,411,512,713,1014]]
 
-class Solution:
-    def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
-        R = len(board)
-        C = len(board[0])
-        toCrush = {}
+def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
+    R = len(board)
+    C = len(board[0])
+    toCrush = {}
+    
+    for r in range(R):
+        for c in range(C):
+            if c+2 < len(board[r]): # check right
+                if board[r][c] != 0 and board[r][c] == board[r][c+1] == board[r][c+2]:
+                    toCrush[(f'{r},{c}')] = f'{r},{c}'
+                    toCrush[(f'{r},{c+1}')] = f'{r},{c+1}'
+                    toCrush[(f'{r},{c+2}')] = f'{r},{c+2}'
+            if r+2 < len(board): # check down
+                if board[r][c] != 0 and board[r][c] == board[r+1][c] == board[r+2][c]:
+                    toCrush[(f'{r},{c}')] = f'{r},{c}'
+                    toCrush[(f'{r+1},{c}')] = f'{r+1},{c}'
+                    toCrush[(f'{r+2},{c}')] = f'{r+2},{c}'
+    for x in toCrush: # convert crushes to 0
+        split = x.index(',')
+        r = int(x[:split])
+        c = int(x[split+1:])
+        board[r][c] = 0
         
+    for c in range(C): # drop the board
+        col_list = []
         for r in range(R):
-            for c in range(C):
-                if c+2 < len(board[r]): # check right
-                    if board[r][c] != 0 and board[r][c] == board[r][c+1] == board[r][c+2]:
-                        toCrush[(f'{r},{c}')] = f'{r},{c}'
-                        toCrush[(f'{r},{c+1}')] = f'{r},{c+1}'
-                        toCrush[(f'{r},{c+2}')] = f'{r},{c+2}'
-                if r+2 < len(board): # check down
-                    if board[r][c] != 0 and board[r][c] == board[r+1][c] == board[r+2][c]:
-                        toCrush[(f'{r},{c}')] = f'{r},{c}'
-                        toCrush[(f'{r+1},{c}')] = f'{r+1},{c}'
-                        toCrush[(f'{r+2},{c}')] = f'{r+2},{c}'
-        for x in toCrush: # convert crushes to 0
-            split = x.index(',')
-            r = int(x[:split])
-            c = int(x[split+1:])
-            board[r][c] = 0
-            
-        for c in range(C): # drop the board
-            col_list = []
-            for r in range(R):
-                col_list.append(board[r][c])
-            for i in reversed(range(len(col_list))):
-                if col_list[i] == 0:
-                    j = i
-                    while col_list[j] == 0:
-                        j-=1
-                        if j < 0:
-                            break
-                    if j >= 0:
-                        col_list[i], col_list[j] = col_list[j], col_list[i]
-            for i in range(len(col_list)):
-                board[i][c] = col_list[i]
-        return self.candyCrush(board) if len(toCrush) > 0 else board
+            col_list.append(board[r][c])
+        self.moveZeroesToFront(col_list)
+        for i in range(len(col_list)):
+            board[i][c] = col_list[i]
+    return self.candyCrush(board) if len(toCrush) > 0 else board
+
+def moveZeroesToFront(self, col_list):
+    right = len(col_list)-1
+    left = right - 1
+    while left >= 0:
+        if col_list[right] == 0:
+            while left > 0 and col_list[left] == 0:
+                left-=1
+            col_list[left], col_list[right] = col_list[right], col_list[left]
+        left-=1
+        right-=1
+    return col_list
                 
             
