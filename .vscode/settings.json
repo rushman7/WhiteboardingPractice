@@ -9,6 +9,7 @@
     "nums",
     "prio",
     "remove",
-    "remove prio"
+    "remove prio",
+    "sentinal"
   ]
 }

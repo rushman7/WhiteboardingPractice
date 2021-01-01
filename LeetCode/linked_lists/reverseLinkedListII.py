@@ -17,10 +17,8 @@ class Solution(object):
     def reverseBetween(self, head, m, n):
         count = 1
         ans = ListNode()
-        temp = ans
-        curr = head
-        prev = None
-        next = None
+        temp, curr = ans, head
+        prev, next = None, None
         
         while curr:
             if count < m or count > n:
@@ -34,6 +32,8 @@ class Solution(object):
                 curr = next
             if count == n:
                 temp.next = prev
-                while temp.next: temp = temp.next
+                print(prev)
+                while temp.next: 
+                    temp = temp.next
             count+=1
-        return ans.next
+        return ans.next 
