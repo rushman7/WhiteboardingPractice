@@ -25,21 +25,41 @@
 # // Input: lists = [[]]
 # // Output: []
 
-class Solution(object):
-    def mergeKLists(self, lists):
-        final = ListNode()
-        final_list = []
-        
-        for i in range(len(lists)):
-            curr = lists[i]
-            while curr:
-                final_list.append(curr.val)
-                curr = curr.next
-        final_list.sort()
-        curr = final
-        for x in final_list:
-            curr.next = ListNode(x)
-            curr = curr.next
-        
-        return final.next
+# def mergeKLists(self, lists):
+#     final = ListNode()
+#     final_list = []
+
+#     for i in range(len(lists)):
+#         curr = lists[i]
+#         while curr:
+#             final_list.append(curr.val)
+#             curr = curr.next
+#     final_list.sort()
+#     curr = final
+#     for x in final_list:
+#         curr.next = ListNode(x)
+#         curr = curr.next
+
+#     return final.next
+
+def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+    if not lists:
+        return None
+    sentinal = ListNode()
+    curr = sentinal
+    q = []
+    heapq.heapify(q)
+
+    for i, l in enumerate(lists):
+        if l:
+            heapq.heappush(q, (l.val, i))
+            
+    while q:
+        val, i = heapq.heappop(q)
+        curr.next = ListNode(val)
+        lists[i] = lists[i].next
+        curr = curr.next
+        if lists[i]:
+            heapq.heappush(q, (lists[i].val, i))
+    return sentinal.next
         
