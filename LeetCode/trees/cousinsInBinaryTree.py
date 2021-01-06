@@ -31,29 +31,56 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
-    def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
-        d = 0
-        q = [root, d]
-        while len(q) > 1:
-            node = q.pop()
-            if type(node) == int:
-                d+=1
-                q.insert(0, d)
-            else:
-                l = node.left
-                r = node.right
-                if l and r:
-                    if (l.val == x and r.val == y) or (l.val == y and r.val == x):
-                        return False
-                if l:
-                    q.insert(0, l)
-                if r:
-                    q.insert(0, r)
-                if node.val == x:
-                    x = d
-                if node.val == y:
-                    y = d
-        return x == y
-                    
+# class Solution:
+#     def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+#         d = 0
+#         q = [root, d]
+#         while len(q) > 1:
+#             node = q.pop()
+#             if type(node) == int:
+#                 d+=1
+#                 q.insert(0, d)
+#             else:
+#                 l = node.left
+#                 r = node.right
+#                 if l and r:
+#                     if (l.val == x and r.val == y) or (l.val == y and r.val == x):
+#                         return False
+#                 if l:
+#                     q.insert(0, l)
+#                 if r:
+#                     q.insert(0, r)
+#                 if node.val == x:
+#                     x = d
+#                 if node.val == y:
+#                     y = d
+#         return x == y
+    
+def isCousins(self, root: TreeNode, x: int, y: int) -> bool:
+    self.xNode, self.yNode = 0, 0
+
+    if not root:
+        return None
+
+    def dfs(node, depth=0):
+        if not node: 
+            return depth-1
+        
+        if node.val == x: self.xNode = depth
+        if node.val == y: self.yNode = depth
+        
+        if node.left and node.right:
+            if (node.left.val == x and node.right.val == y) or (node.left.val == y and node.right.val == x):
+                self.xNode = -1
+                self.yNode = -1
+                return
+            
+        dfs(node.left, depth+1)
+        dfs(node.right, depth+1)
+        
+    dfs(root)
+    print(self.xNode, self.yNode)
+    if self.xNode == -1:
+        return False
+    return self.xNode == self.yNode
             
