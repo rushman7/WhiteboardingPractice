@@ -20,47 +20,30 @@
 # [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[110,0,0,0,114],[210,0,0,0,214],[310,0,0,113,314],[410,0,0,213,414],[610,211,112,313,614],[710,311,412,613,714],[810,411,512,713,1014]]
 
 def candyCrush(self, board: List[List[int]]) -> List[List[int]]:
-    R = len(board)
-    C = len(board[0])
-    toCrush = {}
-    
-    for r in range(R):
-        for c in range(C):
-            if c+2 < len(board[r]): # check right
-                if board[r][c] != 0 and board[r][c] == board[r][c+1] == board[r][c+2]:
-                    toCrush[(f'{r},{c}')] = f'{r},{c}'
-                    toCrush[(f'{r},{c+1}')] = f'{r},{c+1}'
-                    toCrush[(f'{r},{c+2}')] = f'{r},{c+2}'
-            if r+2 < len(board): # check down
-                if board[r][c] != 0 and board[r][c] == board[r+1][c] == board[r+2][c]:
-                    toCrush[(f'{r},{c}')] = f'{r},{c}'
-                    toCrush[(f'{r+1},{c}')] = f'{r+1},{c}'
-                    toCrush[(f'{r+2},{c}')] = f'{r+2},{c}'
-    for x in toCrush: # convert crushes to 0
-        split = x.index(',')
-        r = int(x[:split])
-        c = int(x[split+1:])
-        board[r][c] = 0
+    to_crush = set()
         
-    for c in range(C): # drop the board
-        col_list = []
-        for r in range(R):
-            col_list.append(board[r][c])
-        self.moveZeroesToFront(col_list)
-        for i in range(len(col_list)):
-            board[i][c] = col_list[i]
-    return self.candyCrush(board) if len(toCrush) > 0 else board
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] != 0:
+                if j < len(board[i])-2 and board[i][j] == board[i][j+1] == board[i][j+2]:
+                    to_crush.update([(i,j),(i,j+1),(i,j+2)])
+                if i < len(board)-2 and board[i][j] == board[i+1][j] == board[i+2][j]:
+                    to_crush.update([(i,j),(i+1,j),(i+2,j)])
 
-def moveZeroesToFront(self, col_list):
-    right = len(col_list)-1
-    left = right - 1
-    while left >= 0:
-        if col_list[right] == 0:
-            while left > 0 and col_list[left] == 0:
+    for i, j in to_crush:
+        board[i][j] = 0
+    
+    if to_crush:
+        for col in range(len(board[0])):
+            right = len(board)-1
+            left = right-1
+
+            while left >= 0:
+                if board[right][col] == 0:
+                    while left > 0 and board[left][col] == 0:
+                        left-=1
+                    board[left][col], board[right][col] = board[right][col], board[left][col]
                 left-=1
-            col_list[left], col_list[right] = col_list[right], col_list[left]
-        left-=1
-        right-=1
-    return col_list
-                
-            
+                right-=1
+
+    return board if not to_crush else self.candyCrush(board)
