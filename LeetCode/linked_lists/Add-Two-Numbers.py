@@ -8,69 +8,40 @@
 # Output: 7 -> 0 -> 8
 # Explanation: 342 + 465 = 807.
 
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        len1 = self.findLen(l1)
-        len2 = self.findLen(l2)
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        sentinal = ListNode()
+        curr1, curr2, sent = l1, l2, sentinal
         
-        ans = ListNode()
-        curr = ans
-        while len1 > 0 and len2 > 0:
-            if len1 > len2:
-                curr.next = ListNode(l1.val)
-                l1 = l1.next
-                len1-=1
-            elif len2 > len1:
-                curr.next = ListNode(l2.val)
-                l2 = l2.next
-                len2-=1
-            elif len2 == len1:
-                curr.next = ListNode(l1.val+l2.val)
-                l1 = l1.next
-                l2 = l2.next
-                len1-=1
-                len2-=1
-            curr = curr.next
+        def move_carry(head):
+            curr = head
+            carry = 0
             
-        return self.revList(self.adjustNum(self.revList(ans.next)))
-        
-    def adjustNum(self, node):
-        curr = node
-        carry = 0
-        while curr or carry == 1:
-            if carry == 1:
-                curr.val+=1
+            while curr:
+                curr.val+=carry
                 carry = 0
-            if curr.val >= 10:
-                carry = 1
-                curr.val-=10
-            if not curr.next and carry == 1:
-                temp_node = ListNode(carry)
-                curr.next = temp_node
-                carry = 0
+                if curr.val >= 10:
+                    carry = 1
+                    curr.val-=10
+                if carry and not curr.next:
+                    curr.next = ListNode(carry)
+                    break
                 curr = curr.next
+
+            return head
+        
+        while curr1 or curr2:
+            if curr1 and curr2:
+                sent.next = ListNode(curr1.val+curr2.val)
+                curr1, curr2 = curr1.next, curr2.next
+            elif curr1:
+                sent.next = ListNode(curr1.val)
+                curr1 = curr1.next
             else:
-                curr = curr.next
-        return node
-    
-    def findLen(self, node, count=0):
-        if not node: return count
-        return self.findLen(node.next, count=count+1)
-    
-    def revList(self, node):
-        curr = node
-        prev = None
-        next = None
+                sent.next = ListNode(curr2.val)
+                curr2 = curr2.next
+            sent = sent.next
+            
+        sentinal.next = move_carry(sentinal.next)
         
-        while curr:
-            next = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next
-        
-        return prev
+        return sentinal.next
