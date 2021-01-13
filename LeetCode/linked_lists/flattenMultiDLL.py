@@ -33,20 +33,29 @@
 # Input: head = []
 # Output: []
 
-def flatten(self, head: 'Node') -> 'Node':
-    curr = head
-    while curr:
-        if curr.child:
-            temp = curr.next
-            curr.child.prev = curr
-            curr.next = self.flatten(curr.child)
-            curr.child = None
-            while curr.next:
-                curr = curr.next
-            if temp:
-                temp.prev = curr
-                curr.next = temp; 
-
-        curr = curr.next
-
-    return head
+class Solution:
+    def flatten(self, head: 'Node') -> 'Node':
+        curr = head
+        
+        while curr:
+            if curr.child:
+                child = self.helper(curr.child, curr.next)
+                curr.next, curr.child = None, None
+                child.prev = curr
+                curr.next = child
+                
+            curr = curr.next
+        
+        return head
+                
+    def helper(self, head, next):
+        child = head
+        
+        while child.next:
+            child = child.next
+        
+        if next:
+            next.prev = child
+            child.next = next
+        
+        return head
