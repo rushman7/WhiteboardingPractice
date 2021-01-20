@@ -6,16 +6,13 @@ def isValid(self, s: str) -> bool:
         "[":"]",
         "{":"}"
     }
-
+    
     stack = []
     for char in s:
         if char in left:
             stack.append(char)
         else:
-            if not stack:
+            if not stack or char != left[stack[-1]]:
                 return False
-            temp = stack.pop()
-            if char != left[temp]:
-                return False
-    
+            stack.pop()
     return True if not stack else False
