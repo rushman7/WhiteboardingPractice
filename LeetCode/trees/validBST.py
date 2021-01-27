@@ -1,7 +1,14 @@
-def isValidBST(self, root: TreeNode, min=None, max=None) -> bool:
-    if not root:
-        return True
-    if (min != None and root.val <= min) or (max != None and root.val >= max):
-        return False
-    
-    return self.isValidBST(root.right, root.val, max) and self.isValidBST(root.left, min, root.val)
+class BST:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+def validateBst(tree, tree_min=float('-inf'), tree_max=float('inf')):
+	if not tree:
+		return True
+	if tree.value < tree_min or tree.value >= tree_max:
+		return False
+
+	return validateBst(tree.left, tree_min, tree.value) and validateBst(tree.right, tree.value, tree_max)
