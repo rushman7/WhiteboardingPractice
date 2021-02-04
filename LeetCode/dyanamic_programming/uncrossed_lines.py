@@ -8,4 +8,3 @@ class Solution:
                 dp[i][j] = 1 + dp[i-1][j-1] if A[i-1] == B[j-1] else max(dp[i-1][j], dp[i][j-1])
                 
         return dp[-1][-1]
-    
