@@ -1,27 +1,27 @@
 # O(N^2), O(1)
 
 def longestPalindrome(self, s: str) -> str:
-    start, end = 0, 0
-    
-    for i in range(len(s)-1):
-        odd_len = self.expand(s, i, i)
-        even_len = self.expand(s, i, i+1)
+    if len(s) <= 2:
+        if len(s) == 2:
+            return s if s[0] == s[1] else s[0]
+        return s
 
-        max_len = max(odd_len, even_len)
-        
-        if max_len > end-start:
-            end = i + (max_len+1)//2
-            start = i - max_len//2
-    
-    return s[start:end+1]
-        
-        
-def expand(self, s, l, r):
-    if s[r] != s[l]:
-        return 0
-    
-    while (l > 0 and r < len(s)-1) and s[l-1] == s[r+1]:
-        l-=1
-        r+=1
-    
-    return r-l if s[r]==s[l] else r-l-1
+    max_str = s[0]
+    max_size = 1
+
+    for i in range(len(s)):
+        if i < len(s)-1 and s[i] == s[i+1]:
+            max_size, max_str = self.expandFromMiddle(i, i+1, s, max_size, max_str)
+        if i > 0 and i < len(s)-1 and s[i-1] == s[i+1]:
+            max_size, max_str = self.expandFromMiddle(i-1, i+1, s, max_size, max_str)
+    return max_str
+
+
+def expandFromMiddle(self, left, right, s, max_size, max_str):
+    while left > 0 and right < len(s)-1 and s[left-1] == s[right+1]:
+        left-=1
+        right+=1
+    if right-left+1 > max_size:
+        max_size = right-left+1
+        max_str = s[left:right+1]
+    return max_size, max_str
