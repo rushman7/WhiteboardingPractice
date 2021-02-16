@@ -1,18 +1,19 @@
-def reverse_words(arr):
-  for i in range(len(arr)//2):
-    arr[i], arr[len(arr)-1-i] = arr[len(arr)-1-i], arr[i]
-  
+def reverseWordsInString(string):
+  result, n, left = [], len(string), 0
+  for s in string:
+    result.append(s)
+  swap(result, 0, n-1)
+  for right in range(n):
+    if result[right] == ' ':
+      swap(result, left, right-1)
+      left = right+1
+      
+  swap(result, left, n-1)
+      
+  return "".join(result)
 
-  left = 0
-  for i in range(len(arr)):
-    if arr[i] == ' ' or i == len(arr)-1:
-      right = i if i == len(arr)-1 else i-1
-
-      while left < right:
-        arr[left], arr[right] = arr[right], arr[left]
-        left+=1
-        right-=1
-      left = i+1
-    
-  
-  return arr
+def swap(result, left, right):
+  while left <= right:
+    result[left], result[right] = result[right], result[left]
+    left+=1
+    right-=1
