@@ -23,26 +23,21 @@
 # Explanation:The 0th and 1st students are direct friends, the 1st and 2nd students are direct friends, 
 # so the 0th and 2nd students are indirect friends. All of them are in the same friend circle, so return 1.
 
-def findCircleNum(self, M: List[List[int]]) -> int:
-    g = {}
-    for i in range(len(M)):
-        for j in range(len(M)):
-            if M[i][j] == 1:
-                if i not in g:
-                    g[i] = set()
-                if i != j:
-                    g[i].add(j)
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        result, visited = 0, set()
 
-    def dfs(vertex):
-        visited.add(vertex)
-        for v in g[vertex]:
-            if v not in visited:
-                dfs(v)
-            
-    circles = 0
-    visited = set()
-    for v in range(len(M)):
-        if v not in visited:
-            circles+=1
-            dfs(v)
-    return circles 
+        def dfs(i):
+            nonlocal visited
+            visited.add(i)
+            for j in range(0, len(isConnected[i])):
+                if isConnected[i][j] == 1 and j not in visited:
+                    dfs(j)
+        
+        for i in range(len(isConnected)):
+            if i not in visited:
+                dfs(i)
+                result += 1
+        return result
+    
+                
