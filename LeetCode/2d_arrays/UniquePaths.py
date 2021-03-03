@@ -45,3 +45,23 @@ class Solution:
             return dfs(i,j+1) + dfs(i+1,j)
         dfs(1,1)
         return 1 if m == 1 and n == 1 else cache[(1,1)] 
+
+
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        n, m= len(obstacleGrid[0]), len(obstacleGrid)
+        if obstacleGrid[m-1][n-1] == 1 or obstacleGrid[0][0] == 1:
+            return 0
+        dp = [[0 for _ in range(n)] for _ in range(m)]
+        dp[m-1][n-1] = 1
+        
+        for i in range(m-1, -1, -1): 
+            for j in range(n-1, -1, -1):
+                if i == m-1 and j == n-1:
+                    continue
+                if obstacleGrid[i][j] == 0:
+                    right = dp[i][j+1] if j+1 < n else 0
+                    down = dp[i+1][j] if i+1 < m else 0
+                    dp[i][j] = right + down
+                    
+        return dp[0][0]
