@@ -54,3 +54,16 @@ class Solution():
         
             return memo[index]
         return helper(s)
+
+# time: O(N), space: O(1) - optimal solution
+class Solution():
+    def numDecodings(self, s: str) -> int:
+        if s[0] == '0': return 0
+        
+        one, two = 1, 1
+        
+        for i in range(1, len(s)):
+            curr = one if s[i] != '0' else 0
+            curr += two if '10' <= s[i-1] + s[i] <= '26' else 0
+            two, one = one, curr
+        return one
