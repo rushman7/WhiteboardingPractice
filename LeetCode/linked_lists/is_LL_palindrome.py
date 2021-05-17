@@ -1,25 +1,37 @@
-# Given a singly linked list, determine if it is a palindrome.
-
-# Example 1:
-
-# Input: 1->2
-# Output: false
-# Example 2:
-
-# Input: 1->2->2->1
-# Output: true
-# Follow up:
-# Could you do it in O(n) time and O(1) space?
-
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        if not head:
-            return True
         curr = head
-        ans = []
-        
-        while curr:
-            ans.append(curr.val)
+        size = self.get_len(curr)
+        mid = size // 2
+        curr = head
+        for _ in range(mid):
             curr = curr.next
             
-        return ans == ans[::-1]
+        middle_node = self.reverse(curr)
+        curr = head
+        
+        while middle_node:
+            if curr.val != middle_node.val:
+                return False
+            curr = curr.next
+            middle_node = middle_node.next
+        
+        return True
+        
+    def reverse(self, node):
+        curr, prev, next = node, None, None
+
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        
+        return prev
+    
+    def get_len(self, node):
+        size = 0
+        while node:
+            size += 1
+            node = node.next
+        return size
